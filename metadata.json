@@ -1,6 +1,0 @@
-{
-  "name": "Monopoly Ultimate Banking",
-  "description": "Digital banking terminal for Monopoly Ultimate Banking Edition",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

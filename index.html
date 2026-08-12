@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monopoly Ultimate Banking - Digital Banking Unit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app" class="terminal-container">
+    
+    <!-- HEADER BAR -->
+    <header class="terminal-header">
+      <div class="header-title-zone">
+        <span class="status-dot"></span>
+        <h1 class="brand-title">MONOPOLY ULTIMATE BANKING</h1>
+        <span class="subtitle">DIGITAL BANKING UNIT</span>
+      </div>
+      <div class="header-status-zone">
+        <span id="saveStatus" class="save-indicator">SAVED</span>
+        <button id="resetGameBtn" class="danger-btn-sm" title="Reset Game">RESET GAME</button>
+      </div>
+    </header>
+
+    <!-- START GAME VIEW (Shown when no active game) -->
+    <section id="startScreen" class="view-section active-view">
+      <div class="terminal-panel start-panel">
+        <div class="panel-header">
+          <h2>GAME SETUP</h2>
+          <span class="badge">OFFLINE UNIT</span>
+        </div>
+        <p class="panel-desc">Select 2 to 4 active player tokens to initialize the banking unit with standard starting balances (M1,500 each).</p>
+
+        <div class="player-selection-grid">
+          <label class="token-card" for="token-car">
+            <input type="checkbox" id="token-car" value="car" checked>
+            <div class="token-card-content">
+              <span class="token-icon">🚗</span>
+              <span class="token-name">CAR</span>
+            </div>
+          </label>
+
+          <label class="token-card" for="token-ship">
+            <input type="checkbox" id="token-ship" value="ship" checked>
+            <div class="token-card-content">
+              <span class="token-icon">🚢</span>
+              <span class="token-name">SHIP</span>
+            </div>
+          </label>
+
+          <label class="token-card" for="token-plane">
+            <input type="checkbox" id="token-plane" value="plane" checked>
+            <div class="token-card-content">
+              <span class="token-icon">✈️</span>
+              <span class="token-name">PLANE</span>
+            </div>
+          </label>
+
+          <label class="token-card" for="token-helicopter">
+            <input type="checkbox" id="token-helicopter" value="helicopter">
+            <div class="token-card-content">
+              <span class="token-icon">🚁</span>
+              <span class="token-name">HELICOPTER</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="setup-summary-box">
+          <div class="summary-item">
+            <span class="label">STARTING BALANCE:</span>
+            <span class="valueHighlight">M1,500</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">CURRENCY FORMAT:</span>
+            <span class="value">M (MONOPOLY CREDIT)</span>
+          </div>
+        </div>
+
+        <div id="startError" class="error-banner hidden">Please select between 2 and 4 players.</div>
+
+        <div class="panel-actions">
+          <button id="startGameBtn" class="primary-btn large-btn">START GAME</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- MAIN BANKING TERMINAL VIEW -->
+    <section id="mainTerminal" class="view-section hidden">
+      
+      <!-- TOP PLAYER BALANCES BANNER -->
+      <div id="playersBanner" class="players-banner">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- ACTIVE PLAYER DISPLAY SCREEN -->
+      <div id="activePlayerDisplay" class="active-player-panel">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- MARKET EFFECTS DISPLAY STRIP -->
+      <div id="activeMarketEffects" class="market-effects-strip hidden">
+        <!-- Active market modifiers rendered here -->
+      </div>
+
+      <!-- CORE BANKING ACTION CONTROLS -->
+      <div class="banking-controls-grid">
+        <button class="action-card" data-action="pay-player">
+          <span class="action-icon">💳</span>
+          <span class="action-label">PAY PLAYER</span>
+          <span class="action-desc">Transfer M between players</span>
+        </button>
+
+        <button class="action-card" data-action="pay-rent">
+          <span class="action-icon">🏠</span>
+          <span class="action-label">PAY RENT</span>
+          <span class="action-desc">Auto-calculate & pay rent</span>
+        </button>
+
+        <button class="action-card" data-action="pass-go">
+          <span class="action-icon">➡️</span>
+          <span class="action-label">PASS GO</span>
+          <span class="action-desc">+M200 GO Salary</span>
+        </button>
+
+        <button class="action-card" data-action="property-buy">
+          <span class="action-icon">📜</span>
+          <span class="action-label">PROPERTY</span>
+          <span class="action-desc">Buy / View Board Properties</span>
+        </button>
+
+        <button class="action-card" data-action="auction">
+          <span class="action-icon">🔨</span>
+          <span class="action-label">AUCTION</span>
+          <span class="action-desc">Live Property Bidding System</span>
+        </button>
+
+        <button class="action-card" data-action="bank-payment">
+          <span class="action-icon">🏦</span>
+          <span class="action-label">BANK PAYMENT</span>
+          <span class="action-desc">Bank gives M to player</span>
+        </button>
+
+        <button class="action-card" data-action="pay-bank">
+          <span class="action-icon">💸</span>
+          <span class="action-label">PAY BANK</span>
+          <span class="action-desc">Player pays M to bank</span>
+        </button>
+
+        <button class="action-card" data-action="location-flight">
+          <span class="action-icon">✈️</span>
+          <span class="action-label">LOCATION FLIGHT</span>
+          <span class="action-desc">Pay M100 to fly to space</span>
+        </button>
+
+        <button class="action-card" data-action="market-events">
+          <span class="action-icon">📈</span>
+          <span class="action-label">EVENT SPACES</span>
+          <span class="action-desc">Set Market Rent Modifiers</span>
+        </button>
+
+        <button class="action-card" data-action="taxes">
+          <span class="action-icon">🧾</span>
+          <span class="action-label">INCOME TAX</span>
+          <span class="action-desc">Tax transaction space</span>
+        </button>
+
+        <button class="action-card" data-action="credit-interest">
+          <span class="action-icon">💳</span>
+          <span class="action-label">CREDIT INTEREST</span>
+          <span class="action-desc">Credit Card Debt Interest</span>
+        </button>
+
+        <button class="action-card" data-action="jail">
+          <span class="action-icon">🚔</span>
+          <span class="action-label">JAIL SYSTEM</span>
+          <span class="action-desc">Bail (M50) & Release</span>
+        </button>
+
+        <button class="action-card" data-action="mortgage">
+          <span class="action-icon">🏦</span>
+          <span class="action-label">MORTGAGE</span>
+          <span class="action-desc">Mortgage / Unmortgage</span>
+        </button>
+
+        <button class="action-card" data-action="buildings">
+          <span class="action-icon">🏘️</span>
+          <span class="action-label">HOUSES & HOTELS</span>
+          <span class="action-desc">Buy or Sell Developments</span>
+        </button>
+
+        <button class="action-card" data-action="view-log">
+          <span class="action-icon">📜</span>
+          <span class="action-label">TRANSACTION LOG</span>
+          <span class="action-desc">History & Undo Last</span>
+        </button>
+      </div>
+
+      <!-- FOOTER QUICK TOOLBAR -->
+      <footer class="terminal-footer">
+        <button id="undoBtn" class="sec-btn"><span class="icon">↩️</span> UNDO LAST</button>
+        <button id="quickLogBtn" class="sec-btn"><span class="icon">📜</span> LOG (<span id="logCount">0</span>)</button>
+        <button id="clearSaveBtn" class="danger-btn-sm"><span class="icon">🗑️</span> CLEAR SAVED GAME</button>
+      </footer>
+    </section>
+
+  </div>
+
+  <!-- MODAL DIALOG CONTAINER -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">ACTION</h3>
+        <button id="closeModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div id="modalBody" class="modal-body">
+        <!-- Dynamic content injected here -->
+      </div>
+      <div id="modalFooter" class="modal-footer">
+        <!-- Dynamic buttons injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

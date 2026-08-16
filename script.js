@@ -234,10 +234,17 @@
       description: 'Game started with M1,500 for each player.'
     });
 
-    saveState();
-    showView('mainTerminal');
-    renderAll();
-    showToast('Game Started! Each player received M1,500.', 'success');
+  saveState();
+showView('mainTerminal');
+renderAll();
+
+// Play the money sound when the starting M1,500 is given
+const moneySound = new Audio('money.mp3');
+moneySound.play().catch(err => {
+  console.warn('Could not play money.mp3:', err);
+});
+
+showToast('Game Started! Each player received M1,500.', 'success');
   }
 
   // ==========================================================================
@@ -563,6 +570,10 @@
     if (!player) return;
 
     player.balance += 200;
+  const moneySound = new Audio('money.mp3');
+  moneySound.play().catch(err => {
+    console.warn('Could not play money.mp3:', err);
+  });
 
     addLogEntry({
       sender: 'BANK',

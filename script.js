@@ -1343,6 +1343,11 @@ showToast('Game Started! Each player received M1,500.', 'success');
         }
         player.balance -= 50;
         player.inJail = false;
+		
+		const jailSound = new Audio('jail.mp3');
+jailSound.play().catch(err => {
+  console.warn('Could not play jail.mp3:', err);
+});
 
         addLogEntry({
           sender: `${player.icon} ${player.name}`,
@@ -1385,6 +1390,10 @@ showToast('Game Started! Each player received M1,500.', 'success');
     if (sendToJailBtn) {
       sendToJailBtn.addEventListener('click', () => {
         player.inJail = true;
+		const jailSound = new Audio('jail.mp3');
+jailSound.play().catch(err => {
+  console.warn('Could not play jail.mp3:', err);
+});
         addLogEntry({
           sender: 'BOARD',
           receiver: `${player.icon} ${player.name}`,
